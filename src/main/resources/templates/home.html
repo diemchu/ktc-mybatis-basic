@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생정보</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-wrap: wrap; /* Cho phép các item xuống hàng nếu không đủ chỗ */
+        }
+        .info-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 10px; /* Thêm khoảng cách giữa các item */
+        }
+        .info-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        .info-container p {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+        .info-container label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div th:if = "${list.isEmpty()}">
+        <h1>학생이 없습니다</h1>
+    </div>
+<div class="info-container" th:unless = "${list.isEmpty()}" th:each="student : ${list}">
+    <h2>학생 정보</h2>
+    <p><label>이름:</label> <span id="studentName" th:text="${student.name}"></span></p>
+    <p><label>이메일:</label> <span id="studentEmail" th:text="${student.email}"></span></p>
+    <p><label>나이:</label> <span id="studentAge" th:text="${student.age}"></span></p>
+    <p><label>전화번호:</label> <span id="studentPhone" th:text="${student.phone}"></span></p>
+    <a th:href="@{/{id}/update-view (id = ${student.id})}">Update</a> <br>
+    <a href="/create-view">Create</a> <br>
+    <a th:href="@{/{id}/delete (id = ${student.id})}">Delete </a>
+    <br>
+</div>
+</body>
+</html>
